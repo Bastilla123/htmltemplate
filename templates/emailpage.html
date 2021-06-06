@@ -1,0 +1,515 @@
+{% extends 'argon-dashboard-pro-v1.2.1/base.html' %}
+{% load static %}
+{% block basecontent %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Crush it Able The most popular Admin Dashboard template and ui kit">
+    <meta name="author" content="PuffinTheme the theme designer">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>:: Crush it :: Email</title>
+
+    <!-- Bootstrap Core and vandor -->
+    <link rel="stylesheet" href="{% static 'mailbox/assets/plugins/bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'basetemplates/argon-dashboard-pro-v1.2.1/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}"
+          type="text/css">
+    <!-- Core css -->
+    <link rel="stylesheet" href="{% static 'mailbox/assets/css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'mailbox/assets/css/theme4.css' %}" id="stylesheet"/>
+    <link rel="stylesheet" href="{% static '/AdminLTE-3.1.0-rc/plugins/summernote/summernote-bs4.css' %}">
+</head>
+<style type="text/css">
+    .jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;box-sizing: content-box;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}
+</style>
+<script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/60b739727c0/js/twk-chunk-2d0d2b7c.js"></script>
+<script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/60b739727c0/js/twk-chunk-2d224aff.js"></script>
+<script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/60b739727c0/js/twk-chunk-48f46bef.js"></script>
+<script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/60b739727c0/js/twk-chunk-4fe9d5dd.js"></script>
+<script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/60b739727c0/js/twk-chunk-2d0b9454.js"></script>
+<script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/60b739727c0/js/twk-chunk-f163fcd0.js"></script>
+<script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/60b739727c0/js/twk-chunk-35f53b3a.js"></script>
+<style type="text/css">#e32m1buu6l181f7ekhh5q {outline:none !important;
+visibility:visible !important;
+resize:none !important;
+box-shadow:none !important;
+overflow:visible !important;
+background:none !important;
+opacity:1 !important;
+filter:alpha(opacity=100) !important;
+-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important;
+-mz-opacity:1 !important;
+-khtml-opacity:1 !important;
+top:auto !important;
+right:0px !important;
+bottom:0px !important;
+left:auto !important;
+position:fixed !important;
+border:0 !important;
+min-height:0px  !important;
+min-width:0px  !important;
+max-height:none  !important;
+max-width:none  !important;
+padding:0px !important;
+margin:0px !important;
+-moz-transition-property:none !important;
+-webkit-transition-property:none !important;
+-o-transition-property:none !important;
+transition-property:none !important;
+transform:none !important;
+-webkit-transform:none !important;
+-ms-transform:none !important;
+width:auto !important;
+height:auto  !important;
+display:block !important;
+z-index:2000000000 !important;
+background-color:transparent !important;
+cursor:none !important;
+float:none !important;
+border-radius:unset !important;
+pointer-events:auto !important;}
+</style>
+<style type="text/css">
+    @keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}@-moz-keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}@-webkit-keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}#euujtev7ps0o1f7ekhh8f.open{animation : tawkMaxOpen .25s ease!important;}@keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}@-moz-keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}@-webkit-keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}#euujtev7ps0o1f7ekhh8f.closed{animation: tawkMaxClose .25s ease!important}
+</style>
+</head>
+<body class="font-opensans iconcolor email_page">
+
+<div class="page-loader-wrapper" style="display: none;">
+    <div class="loader">
+    </div>
+</div>
+
+<div id="main_content">
+
+
+
+    <div class="user_div">
+        <h5 class="brand-name mb-4">User Crush<a href="javascript:void(0)" class="user_btn"><i
+                class="icon-close"></i></a></h5>
+        <div class="card">
+            <img class="card-img-top" src="../assets/images/gallery/6.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Daniel Kristeen</h5>
+                <p class="card-text">795 Folsom Ave, Suite 600 San Francisco, 94107</p>
+                <div class="row">
+                    <div class="col-4">
+                        <h6><strong>3265</strong></h6>
+                        <small>Post</small>
+                    </div>
+                    <div class="col-4">
+                        <h6><strong>1358</strong></h6>
+                        <small>Followers</small>
+                    </div>
+                    <div class="col-4">
+                        <h6><strong>10K</strong></h6>
+                        <small>Likes</small>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">michael@example.com</li>
+                <li class="list-group-item">+ 202-555-2828</li>
+                <li class="list-group-item">October 22th, 1990</li>
+            </ul>
+            <div class="card-body">
+                <a href="javascript:void(0);" class="card-link">View More</a>
+                <a href="javascript:void(0);" class="card-link">Another link</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="d-block">Total Income<span class="float-right">77%</span></label>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="77" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 77%;"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="d-block">Total Expenses <span class="float-right">50%</span></label>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 50%;"></div>
+                    </div>
+                </div>
+                <div class="form-group mb-0">
+                    <label class="d-block">Gross Profit <span class="float-right">23%</span></label>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="23" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 23%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="d-block">Storage <span class="float-right">77%</span></label>
+            <div class="progress progress-sm">
+                <div class="progress-bar" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 77%;"></div>
+            </div>
+            <button type="button" class="btn btn-primary btn-block mt-3">Upgrade Storage</button>
+        </div>
+    </div>
+
+    <div id="left-sidebar" class="sidebar">
+        <div class="d-flex justify-content-between brand_name">
+            <h5 class="brand-name">Crush it</h5>
+            <div class="theme_btn">
+                <a class="theme1" data-toggle="tooltip" title="" href="#"
+                   onclick="if (!window.__cfRLUnblockHandlers) return false; setStyleSheet('../assets/css/theme1.css', 0);"
+                   data-original-title="Theme Radical"></a>
+                <a class="theme2" data-toggle="tooltip" title="" href="#"
+                   onclick="if (!window.__cfRLUnblockHandlers) return false; setStyleSheet('../assets/css/theme2.css', 0);"
+                   data-original-title="Theme Turmeric"></a>
+                <a class="theme3" data-toggle="tooltip" title="" href="#"
+                   onclick="if (!window.__cfRLUnblockHandlers) return false; setStyleSheet('../assets/css/theme3.css', 0);"
+                   data-original-title="Theme Caribbean"></a>
+                <a class="theme4" data-toggle="tooltip" title="" href="#"
+                   onclick="if (!window.__cfRLUnblockHandlers) return false; setStyleSheet('../assets/css/theme4.css', 0);"
+                   data-original-title="Theme Cascade"></a>
+            </div>
+        </div>
+        <div class="input-icon">
+<span class="input-icon-addon">
+ <i class="fe fe-search"></i>
+</span>
+            <input type="text" class="form-control" placeholder="Search...">
+        </div>
+        <a href="app-compose.html" class="btn btn-primary btn-block mt-4 mb-2">Create New</a>
+        <nav class="sidebar-nav">
+            <ul class="metismenu mt-2">
+                <li class="active"><a href="app-email.html"><i class="icon-envelope"></i><span>Inbox</span> <span
+                        class="badge badge-primary badge-pill ml-2">14</span></a></li>
+                <li><a href="javascript:void(0);"><i class="icon-star"></i><span>Starred</span></a></li>
+                <li><a href="javascript:void(0);"><i class="icon-clock"></i><span>Snoozed</span></a></li>
+                <li><a href="javascript:void(0);"><i class="icon-cursor"></i><span>Sent</span></a></li>
+                <li><a href="javascript:void(0);"><i class="icon-envelope-open"></i><span>Draft</span></a></li>
+                <li><a href="javascript:void(0);"><i class="icon-action-redo"></i><span>Outbox</span></a></li>
+                <li><a href="javascript:void(0);"><i class="icon-trash"></i><span>Trash</span></a></li>
+                <li class="g_heading">Labels</li>
+                <li><a href="javascript:void(0);"><span class="status-icon bg-danger"></span><span>WorkShop</span></a>
+                </li>
+                <li><a href="javascript:void(0);"><span class="status-icon bg-info"></span><span>PayPal</span></a></li>
+                <li><a href="javascript:void(0);"><span
+                        class="status-icon bg-success"></span><span>Reports2019</span></a></li>
+                <li><a href="javascript:void(0);"><span
+                        class="status-icon bg-warning"></span><span>Development</span></a></li>
+                <li><a href="javascript:void(0);"><span class="status-icon bg-primary"></span><span>Design</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="page">
+        <div class="inbox_body">
+            <div class="inbox_list" id="users">
+                <div class="selectgroup w-100">
+                    <label class="selectgroup-item">
+                        <input type="radio" name="intensity" value="low" class="selectgroup-input" checked="">
+                        <span class="selectgroup-button">Primary</span>
+                    </label>
+                    <label class="selectgroup-item">
+                        <input type="radio" name="intensity" value="medium" class="selectgroup-input">
+                        <span class="selectgroup-button">Social</span>
+                    </label>
+                    <label class="selectgroup-item">
+                        <input type="radio" name="intensity" value="high" class="selectgroup-input">
+                        <span class="selectgroup-button">Updates</span>
+                    </label>
+                </div>
+                <div class="input-icon mt-1 mb-2">
+                    <input type="text" class="form-control search" placeholder="Search for...">
+                    <span class="input-icon-addon">
+<i class="fe fe-search"></i>
+</span>
+                </div>
+                <ul class="right_chat list-unstyled list">
+                    <li class="offline">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar1.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Phillip Smith</small> <small>5:15PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">Need Support</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="fa fa-star text-muted"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">it is a long established fact that a reader will be distracted by the readable content</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="online active">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar2.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Merri Diamond</small> <small>5:18PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">Apply for web Developer</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="icon-paper-clip mr-2 ml-2"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">The point of using Lorem Ipsum is that it has a more-or-less normal distribution</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="offline">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar3.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Allen Collins</small> <small>5:18PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">Balance Withdrawal Failed</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="icon-paper-clip mr-2 ml-2"></i>
+                                            <i class="fa fa-star text-muted"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">There are many variations of passages of Lorem Ipsum available, but the majority</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="offline">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar2.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Andrew Patrick</small> <small>5:18PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">New Project</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="fa fa-star text-muted"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">Contrary to popular belief, Lorem Ipsum is not simply random text</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="offline">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar4.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Phillip Smith</small> <small>5:15PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">Need Support</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="fa fa-star text-muted"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">it is a long established fact that a reader will be distracted by the readable content</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="online">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar5.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Merri Diamond</small> <small>5:18PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">Apply for web Developer</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="icon-paper-clip mr-2 ml-2"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">The point of using Lorem Ipsum is that it has a more-or-less normal distribution</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="offline">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar3.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Allen Collins</small> <small>5:18PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">Balance Withdrawal Failed</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="icon-paper-clip mr-2 ml-2"></i>
+                                            <i class="fa fa-star text-muted"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">There are many variations of passages of Lorem Ipsum available, but the majority</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="offline">
+                        <a href="javascript:void(0);" class="media">
+                            <img class="media-object" src="../assets/images/xs/avatar2.jpg" alt="">
+                            <div class="media-body">
+                                <div class="d-flex justify-content-between mb-1"><small>Andrew Patrick</small> <small>5:18PM</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="name text_ellipsis">New Project</span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-2 ml-2">
+                                            <i class="fa fa-star text-muted"></i>
+                                        </div>
+                                        <label class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input">
+                                            <span class="custom-control-label"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <span class="message">Contrary to popular belief, Lorem Ipsum is not simply random text</span>
+                                <span class="badge badge-outline status"></span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="inbox_content open">
+                <div class="card inbox">
+                    <div class="d-flex justify-content-between action_bar">
+                        <div>
+                            <button type="button" class="btn btn-icon btn-primary"><i class="fe fe-rotate-cw"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-outline-primary"><i class="fe fe-arrow-left"></i></a>
+                            <a href="#" class="btn btn-outline-primary"><i class="fe fe-arrow-right"></i></a>
+                            <button type="button" class="btn btn-outline-primary"><i class="fe fe-settings mr-2"></i>Setting
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body detail">
+                        <div class="detail-header">
+                            <div class="media">
+                                <div class="float-left">
+                                    <div class="mr-3"><img src="../assets/images/xs/avatar5.jpg" alt=""></div>
+                                </div>
+                                <div class="media-body">
+                                    <p class="mb-0"><strong class="text-muted mr-1">From:</strong><a
+                                            href="javascript:void(0);">info@example.com</a><span
+                                            class="text-muted text-sm float-right">12:48, 23.06.2018</span></p>
+                                    <p class="mb-0"><strong class="text-muted mr-1">To:</strong>Me <small
+                                            class="float-right"><i class="fe fe-paperclip mr-1"></i>(2 files, 89.2
+                                        KB)</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mail-cnt">
+                            <p>Hello <strong>Marshall Nichols</strong>,</p><br>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged.</p>
+                            <ul>
+                                <li>standard dummy text ever since the 1500s, when an unknown printer</li>
+                                <li>Lorem Ipsum has been the industry's standard dummy</li>
+                            </ul>
+                            <p>printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                text ever since the 1500s, when an unknown printer took a galley of type and scrnturies,
+                                but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                            <br>
+                            <div class="file_folder">
+                                <a href="javascript:void(0);">
+                                    <div class="icon">
+                                        <i class="fa fa-file-excel-o text-success"></i>
+                                    </div>
+                                    <div class="file-name">
+                                        <p class="mb-0 text-muted">Report2017.xls</p>
+                                        <small>Size: 68KB</small>
+                                    </div>
+                                </a>
+                                <a href="javascript:void(0);">
+                                    <div class="icon">
+                                        <i class="fa fa-file-word-o text-primary"></i>
+                                    </div>
+                                    <div class="file-name">
+                                        <p class="mb-0 text-muted">Report2017.doc</p>
+                                        <small>Size: 68KB</small>
+                                    </div>
+                                </a>
+                                <a href="javascript:void(0);">
+                                    <div class="icon">
+                                        <i class="fa fa-file-pdf-o text-danger"></i>
+                                    </div>
+                                    <div class="file-name">
+                                        <p class="mb-0 text-muted">Report2017.pdf</p>
+                                        <small>Size: 68KB</small>
+                                    </div>
+                                </a>
+                            </div>
+                            <p>Thank youm,<br><strong>Wendy Abbott</strong></p>
+                            <hr>
+                            <a class="btn btn-default" href="app-compose.html">Reply</a>
+                            <a class="btn btn-default" href="app-compose.html">Forward</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery and bootstrtap js -->
+<script src="{% static 'mailbox/assets/bundles/lib.vendor.bundle.js' %}"></script>
+
+<!-- start plugin js file  -->
+
+<!-- Start core js and page js -->
+<script src="{% static 'mailbox/assets/js/core.js' %}"></script>
+</body>
+</html>
+{% endblock %}

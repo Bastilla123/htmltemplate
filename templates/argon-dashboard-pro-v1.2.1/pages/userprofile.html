@@ -1,0 +1,269 @@
+{% extends 'basetemplates/mainbasetemplate.html' %}
+{% block title %}{{model}}{% endblock %}
+{% load static %}
+{% load i18n %}
+{% load tags %}
+
+{% block basecontent %}
+
+<div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image: url({% static 'basetemplates/argon-dashboard-pro-v1.2.1/assets/img/theme/profile-cover.jpg' %}); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hallo {{user.first_name}}</h1>
+            <p class="text-white mt-0 mb-5">Hier können Sie alle Benutzereinstellungen machen</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2">
+          <div class="card card-profile">
+
+
+
+
+            <img src="{% static 'basetemplates/argon-dashboard-pro-v1.2.1/assets/img/theme/img-1-1000x600.jpg' %}" alt="Image placeholder" class="card-img-top">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                     {{ user.photo.photo_set.all }}
+          {% if user.photo_set.all.count != 0 %}
+                            <img class="img-circle elevation-2" src="{{ request.scheme }}://{{ request.get_host }}/mediafiles/{{user.photo_set.all.0.thumbnail}}" >
+          {% else %} <i class="rounded-circle"></i> {% endif %}
+
+
+
+
+
+
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <a href="{% url 'uploadphoto' %}" class="btn btn-sm btn-info  mr-4 ">Foto hochladen</a>
+
+              </div>
+            </div>
+            <div class="card-body pt-0">
+
+              <div class="text-center">
+                <h5 >
+                    {{user.first_name}} {{user.last_name}}</br>
+                    {{user.usersettings.street}}</br>
+                    {{user.usersettings.zip}} {{user.usersettings.city}}</br>
+
+                </h5>
+
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>{{user.usersettings.userprofilposition}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-8 order-xl-1">
+
+          <!-- card -->
+           <form class="form-horizontal" method="post">
+        <div class="card-body">
+            <div class="nav-wrapper">
+        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="custom-tabs-four-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0  active" id="basisdatatab" data-toggle="pill" href="#basisdata" role="tab"
+                   aria-controls="custom-tabs-four-home" aria-selected="true">Basidaten</a>
+            </li>
+            {% for entry in additionaltabs %}
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0 " id="tab{{entry.name}}" data-toggle="pill" href="#{{entry.name}}" role="tab"
+                   aria-controls="custom-tabs-four-home" aria-selected="true">{{entry.name}}</a>
+            </li>
+            {% endfor %}
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0 " id="historietab" data-toggle="pill" href="#historie" role="tab"
+                   aria-controls="custom-tabs-four-profile" aria-selected="false">Historie</a>
+            </li>
+
+        </ul>
+    </div>
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+                <div class="tab-pane fade show active" id="basisdata" role="tabpanel"
+                     aria-labelledby="custom-tabs-four-home-tab">
+                    <div class="col-md-12">
+
+                        <div class="card card-primary">
+
+
+                            <div class="card-header">
+                                <h3 class="card-title">Basisdaten</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+
+                            <div class="card-body">
+                                {% csrf_token %}
+                                {% if forms %}
+                                {% for field in forms.basisdata.visible_fields %}
+                                {% if field.name != 'right_to_view_form' and field.name != 'right_to_change_form' and field.name != 'right_to_delete_form' and field.name != 'owner'  %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+
+                                {% for field in form.visible_fields %}
+                                {% if field.name != 'right_to_view_form' and field.name != 'right_to_change_form' and field.name != 'right_to_delete_form' and field.name != 'owner'  %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+
+                            </div>
+                            <!-- /.card-body -->
+
+                        </div>
+                        <!-- /.card-footer -->
+                        {% if form.right_to_view_form %}
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Rechte</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+
+                                <div class="card-body">
+
+                                    <div class="form-group">
+                                        {{ form.right_to_view_form.label_tag }}
+                                        {{ form.right_to_view_form }}
+                                        {% if form.right_to_view_form.help_text %}
+                                        <small class="form-text text-muted">{{ form.right_to_view_form.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form.right_to_change_form.label_tag }}
+                                        {{ form.right_to_change_form }}
+                                        {% if form.right_to_change_form.help_text %}
+                                        <small class="form-text text-muted">{{ form.right_to_change_form.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form.right_to_delete_form.label_tag }}
+                                        {{ form.right_to_delete_form }}
+                                        {% if form.right_to_delete_form.help_text %}
+                                        <small class="form-text text-muted">{{ form.right_to_delete_form.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.owner.label_tag }}
+                                        {{ form.owner }}
+                                        {% if form.owner.help_text %}
+                                        <small class="form-text text-muted">{{ form.owner.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+
+
+                                </div>
+
+
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                {% for additionaltab in additionaltabs %}
+                <div class="tab-pane fade" id="{{additionaltab.name}}" role="tabpanel"
+                     aria-labelledby="custom-tabs-four-profile-tab">
+                    <!-- /.card-header -->
+
+                    <div class="card-body">
+                        {% for box in additionalboxes %}
+                        <div class="card card-primary">
+
+
+                            <div class="card-header">
+                                <h3 class="card-title">{{box.name}}</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+
+                            <div class="card-body">
+                            {{ forms|get_item:box.name }}
+
+
+                            </div>
+                            <!-- /.card-body -->
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                 {% endfor %}
+
+
+
+
+                <div class="tab-pane fade" id="historie" role="tabpanel"
+                     aria-labelledby="custom-tabs-four-profile-tab">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Historieeinträge</h3>
+                        </div>
+                        <!-- /.card-header -->
+
+
+                        {% include 'historie/Historietablelist.html' %}
+                    </div>
+                </div>
+
+
+            <div class="card-footer">
+                    <button type="submit" class="btn btn-info">Sichern</button>
+                    {% block extrabuttons %}
+                    {% endblock %}
+
+                    <a href="{{ view.success_url }}" class="btn btn-secondary float-right">{% trans "Cancel" %}</a>
+                </div>
+        </div>
+        </div>
+        <!-- /.card -->
+    </form>
+
+          <!-- /card -->
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="footer pt-0">
+        <div class="row align-items-center justify-content-lg-between">
+
+
+        </div>
+      </footer>
+    </div>
+
+{% endblock %}

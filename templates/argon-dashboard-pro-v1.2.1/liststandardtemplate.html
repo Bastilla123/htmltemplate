@@ -1,0 +1,361 @@
+{% extends 'marketing/datatable.html' %}
+{% block title %}{{model|title}}liste{% endblock %}
+{% block datatablecss %}
+{% load widget_tweaks %}
+{% load tags %}
+<style>
+
+    .my-custom-scrollbar {
+position: relative;
+height: 580px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
+
+    #pagination {
+        margin: 2px 0;
+        white-space: nowrap;
+        justify-content: flex-end;
+    }
+
+    #fixedline {
+        background: rgba(16, 78, 139);
+        color: #fff !important;
+        z-index: 1;
+
+        left: 265px;
+
+        position: fixed;
+        bottom: 0px;
+        width: calc(100% - 280px);
+
+    }
+</style>
+{% endblock %}
+
+{% block datatablecontent %}
+
+<div class="col-12">
+
+
+    <div class="row">
+
+
+        <div class="col-9 pl-0">
+            </br>
+            {% block buttons %}
+
+            <div>
+
+                {% for key,value in buttons.items %}
+                {% for key2,value2 in value.items %}
+
+
+                {% if key2 == "url" %}<a href="{{ value2 }}">{% endif %}
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">
+                    {% for key2,value2 in value.items %}
+
+
+                    {% if key2 == "awesomefont" %}<i class="{{ value2 }}"></i>{% endif %}
+                    {% endfor %}
+                    {% for key2,value2 in value.items %}
+
+                    {% if key2 == "label" %}{{ value2 }}{% endif %}
+                    {% endfor %}
+                </button>
+                {% for key2,value2 in value.items %}
+
+
+                {% if key2 == "url" %}
+            </a>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+                {% endblock %}
+            </div>
+        </div>
+
+
+<div class="col-3">
+
+
+
+
+            <div class="float-right">
+
+                    <div class="form-group" >
+                        <label style="color:white;">Sortierung: </label>
+                        <select class="custom-select" id="selectorderby">
+                            {% for entry in fieldlist2 %}
+                            {% for key,val in labels.items %}
+                            {% if key == entry %}
+                            <option value="{{entry}}">{{val}}</option>
+                            {% endif %}}
+                            {% endfor %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+            </div>
+
+
+
+
+            <div class="float-right">
+
+                    <div class="form-group" >
+                        <label style="color:white;">Anzahl</label>
+                        <select class="custom-select" id="selectpaginationsize">
+                            <option value="25">25</option>
+
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="250">250</option>
+                        </select>
+                    </div>
+
+            </div>
+        </div>
+ </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+
+
+
+
+                <div class="row">
+                    <!-- /.card-header -->
+                    <div class="col-10">
+
+        <!-- Light table -->
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table class="fixed_header table align-items-center table-flush table-striped">
+            <thead class="thead-light">
+              {% for field in fields %}
+                                {% for key,values in labels.items %}
+                                {% if field == key %}
+                                    <th scope="col" >{{ values|default_if_none:" " }}</th>
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}
+                                <th style="width: 16.66%">Aktion</th>
+
+                                {% if 'newsletter' in request.path %}
+
+
+                                 <th>Freigabe</th>
+
+                                {% endif %}
+            </thead>
+                            <tbody>
+
+                            {% for row in object_list %}
+                                <tr>
+                                    {% for field in fields %}
+                                        {% if element.is_active == False %}
+                                    <td style="color:grey">
+                                    {% else %}
+                                        <td>
+                                    {% endif %}
+
+
+                                    {% if row|get_attr:field|get_type == "<class 'datetime.datetime'>" %}{{ row|get_attr:field|date:"d M Y"|linebreaksbr|default_if_none:"" }}{% elif field|getmodelfieldtype:row == 'ManyToManyField' %}{{ field|getmanytomanyvalues:row|safe}}{% else %}{{ row|get_attr:field|linebreaksbr|default_if_none:"" }}{% endif %}</td>
+                                    {% endfor %}
+                                    <td>
+                                        {% if request.user == row.owner or request.user.is_superuser == True %}
+                                            <a class="btn btn-primary btn-sm" style="width:80px;"
+                                                    href="/edit/{{model}}/{{ row.pk }}/"><i
+                                                    class="fas fa-edit fa-2x"></i><h5>Edit</h5></a>
+                                            <a class="btn btn-danger btn-sm" style="width:80px;"
+                                            href="/delete/{{model}}/{{ row.pk }}/"><i
+                                            class="fas fa-trash fa-2x"></i><h5>Delete</h5></a>
+                                        {% else %}
+                                            {% for rightsentry in row.rights_link.all %}
+
+                                                {% if rightsentry.right_to_change == True %}
+                                                    <a class="btn btn-primary btn-sm" style="width:80px;"
+                                                    href="/edit/{{model}}/{{ row.pk }}/"><i
+                                                    class="fas fa-edit fa-2x"></i><h5>Edit</h5></a>
+                                                {% endif %}
+
+                                                {% if 'user' not in request.path %}
+                                                    {% if rightsentry.right_to_delete == True %}
+                                                        <a class="btn btn-danger btn-sm" style="width:80px;"
+                                                        href="/delete/{{model}}/{{ row.pk }}/"><i
+                                                        class="fas fa-trash fa-2x"></i><h5>Delete</h5></a>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </td>
+
+
+
+
+                                {% if 'newsletter' in request.path %}
+
+                                {% if row.is_released == False %}
+                                <td><a href="/newsletter/freigabe/{{ row.id }}/"> <i class="fas fa-times fa-2x"></i>
+                                </a></td>
+                                {% else %}
+                                <td><a href="#"><i class="fas fa-check fa-2x"></i> </a></td>
+
+                                {% endif %}
+
+                                {% endif %}
+                                </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                            </div>
+                    </div>
+                    <div class="card card-primary col-2">
+                        <div class="card-header">
+                            <h3 class="card-title">Filter</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form>
+                            <div class="card-body">
+
+
+                                <table class="col-12">
+                                    {% for field in filter.form.visible_fields %}
+                                    <tr>
+                                        <th>{{ field.label }}</th>
+                                        <td>
+                                            {{ field.errors }}
+                                            {% render_field field class="form-control" %}
+
+                                            {{ field.help_text }}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+
+
+                            </div>
+                            <!-- /.card-body -->
+<div class="row">
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Anwenden</button>
+                            </div>
+                            {% if '?' in request.get_full_path %}
+                                <a class="btn btn-warning" href="{% url 'addresslist' %}">Reset</a>
+                                {% endif %}
+    </div>
+                        </form>
+                    </div>
+
+                </div>
+                {% if is_paginated %}
+
+                <div class="row">
+                    <div class="col">
+                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">{{page_obj.start_index }} - {{ page_obj.end_index }} von {{ page_obj.paginator.count }}
+                        </div>
+                    </div>
+
+
+                    <div class="col float-right">
+                        {% if is_paginated %}
+                        <div class="float-right">{% include base_template|add:'paging.html' %}</div>
+                        {% endif %}
+                    </div>
+                 </div>
+
+                    <!-- /Pagination -->
+        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+</div>
+
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</div>
+
+
+{% endblock %}
+{% block datatablescripts %}
+<!-- Page specific script -->
+
+<script>
+    $('#selectpaginationsize').change(function () {
+
+        query = $("#selectpaginationsize").val()
+
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/updatepaginationsize/',
+            data: {
+                'query': query,
+                'model': '{{model}}',
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+
+            success: function (response) {
+                window.location = "{{ request.get_full_path }}";
+            }
+
+        });
+    });
+</script>
+
+<script>
+
+    $("#selectpaginationsize").val({{ pagesize }})
+    ;
+
+</script>
+
+<script>
+    $('#selectorderby').change(function () {
+        var url = window.location.href;
+        ordering = $("#selectorderby").val()
+        $.ajax({
+            type: 'POST',
+            url: '/ajax/updateordering/',
+            data: {
+                'ordering': ordering,
+                'model': '{{model}}',
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+
+            success: function (response) {
+                window.location = "{{ request.get_full_path }}";
+            }
+        });
+    });
+</script>
+
+<script>
+    {% if orderby %}
+    $("#selectorderby").val('{{orderby}}');
+    {% endif %}
+</script>
+
+
+{% endblock %}
+
+

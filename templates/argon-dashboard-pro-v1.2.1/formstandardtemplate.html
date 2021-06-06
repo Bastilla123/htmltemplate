@@ -1,0 +1,360 @@
+{% extends 'marketing/forms.html' %}
+{% block title %}{{model}}{% endblock %}
+{% load static %}
+{% load i18n %}
+{% load tags %}
+
+{% block formscontent %}
+
+
+
+<div class="card">
+     <!-- Card header -->
+
+
+<div class = "tab-content">
+
+    </div>
+    <form class="form-horizontal" method="post">
+        <div class="card-body">
+            <div class="nav-wrapper">
+        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="custom-tabs-four-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0  active" id="basisdatatab" data-toggle="pill" href="#basisdata" role="tab"
+                   aria-controls="custom-tabs-four-home" aria-selected="true">Basidaten</a>
+            </li>
+            {% for entry in additionaltabs %}
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0 " id="tab{{entry.name}}" data-toggle="pill" href="#{{entry.name}}" role="tab"
+                   aria-controls="custom-tabs-four-home" aria-selected="true">{{entry.name}}</a>
+            </li>
+            {% endfor %}
+            {% if form.right_to_view_form %}
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0 " id="rightstab" data-toggle="pill" href="#rights" role="tab"
+                   aria-controls="custom-tabs-four-profile" aria-selected="false">Rechte</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link mb-sm-3 mb-md-0 " id="historietab" data-toggle="pill" href="#historie" role="tab"
+                   aria-controls="custom-tabs-four-profile" aria-selected="false">Historie</a>
+            </li>
+
+        </ul>
+    </div>
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+                <div class="tab-pane fade show active" id="basisdata" role="tabpanel"
+                     aria-labelledby="custom-tabs-four-home-tab">
+                    <div class="col-md-12">
+
+                        <div class="card card-primary">
+
+
+                            <div class="card-header">
+                                <h3 class="card-title">Basisdaten</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+
+                            <div class="card-body">
+                                {% csrf_token %}
+                                {% if forms %}
+                                {% for field in forms.basisdata.visible_fields %}
+                                {% if field.name != 'right_to_view_form' and field.name != 'right_to_change_form' and field.name != 'right_to_delete_form' and field.name != 'owner'  %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+
+                                {% for field in form.visible_fields %}
+                                {% if field.name != 'right_to_view_form' and field.name != 'right_to_change_form' and field.name != 'right_to_delete_form' and field.name != 'owner'  %}
+                                <div class="form-group">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+
+                            </div>
+                            <!-- /.card-body -->
+
+                        </div>
+                        <!-- /.card-footer -->
+
+                    </div>
+
+                </div>
+
+                {% for additionaltab in additionaltabs %}
+                <div class="tab-pane fade" id="{{additionaltab.name}}" role="tabpanel"
+                     aria-labelledby="custom-tabs-four-profile-tab">
+                    <!-- /.card-header -->
+
+                    <div class="card-body">
+                        {% for box in additionalboxes %}
+                        <div class="card card-primary">
+
+
+                            <div class="card-header">
+                                <h3 class="card-title">{{box.name}}</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+
+                            <div class="card-body">
+                            {{ forms|get_item:box.name }}
+
+
+                            </div>
+                            <!-- /.card-body -->
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                 {% endfor %}
+                {% if form.right_to_view_form %}
+                <div class="tab-pane fade" id="rights" role="tabpanel"
+                     aria-labelledby="custom-tabs-four-profile-tab">
+
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Rechte</h3>
+                            </div>
+                            <!-- /.card-header -->
+
+
+                                <div class="card-body">
+
+                                    <div class="form-group">
+                                        {{ form.right_to_view_form.label_tag }}
+                                        {{ form.right_to_view_form }}
+                                        {% if form.right_to_view_form.help_text %}
+                                        <small class="form-text text-muted">{{ form.right_to_view_form.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form.right_to_change_form.label_tag }}
+                                        {{ form.right_to_change_form }}
+                                        {% if form.right_to_change_form.help_text %}
+                                        <small class="form-text text-muted">{{ form.right_to_change_form.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form.right_to_delete_form.label_tag }}
+                                        {{ form.right_to_delete_form }}
+                                        {% if form.right_to_delete_form.help_text %}
+                                        <small class="form-text text-muted">{{ form.right_to_delete_form.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.owner.label_tag }}
+                                        {{ form.owner }}
+                                        {% if form.owner.help_text %}
+                                        <small class="form-text text-muted">{{ form.owner.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+
+
+                                </div>
+
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+                <div class="tab-pane fade" id="historie" role="tabpanel"
+                     aria-labelledby="custom-tabs-four-profile-tab">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Historieeinträge</h3>
+                        </div>
+                        <!-- /.card-header -->
+
+
+                        {% include 'historie/Historietablelist.html' %}
+                    </div>
+                </div>
+
+
+            <div class="card-footer">
+                    <button type="submit" class="btn btn-info">Sichern</button>
+                    {% block extrabuttons %}
+                    {% endblock %}
+
+                    <a href="{{ view.success_url }}" class="btn btn-secondary float-right">{% trans "Cancel" %}</a>
+                </div>
+        </div>
+        </div>
+        <!-- /.card -->
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block formsscripts %}
+<script type="text/javascript" src="{% static 'selectize.js-master/dist/js/standalone/selectize.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'selectize.js-master/dist/css/selectize.css' %}"/>
+<script>
+    var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
+        '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+
+    $('.selectize_email').selectize({
+        persist: false,
+        maxItems: null,
+        valueField: 'email',
+        labelField: 'name',
+        searchField: ['name', 'email'],
+
+        render: {
+            item: function (item, escape) {
+
+                return '<div data-value=""' + escape(item.name) + '"><span className="email">' + escape(item.email) + '</span></div>';
+
+
+            },
+            option: function (item, escape) {
+                var label = item.name || item.email;
+                var caption = item.name ? item.email : null;
+                return '<div>' +
+                    '<span class="label">' + escape(label) + '</span>' +
+                    (caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
+                    '</div>';
+            }
+        },
+        createFilter: function (input) {
+            var match, regex;
+
+            // email@address.com
+            regex = new RegExp('^' + REGEX_EMAIL + '$', 'i');
+            match = input.match(regex);
+            if (match) return !this.options.hasOwnProperty(match[0]);
+
+            // name <email@address.com>
+            regex = new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i');
+            match = input.match(regex);
+            if (match) return !this.options.hasOwnProperty(match[2]);
+
+            return false;
+        },
+        create: function (input) {
+
+            if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
+                return {email: input};
+            }
+            var match = input.match(new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i'));
+            if (match) {
+                return {
+                    email: match[2],
+                    name: $.trim(match[1])
+                };
+            }
+            alert('Invalid email address.');
+            return false;
+        }
+    });
+
+
+</script>
+<script>
+    var REGEX_Telefon = '([+](\\d{1,3})\\s?)?((\\(\\d{3,5}\\)|\\d{3,5})(\\s)?)\\d{3,8}';
+
+
+    $('.selectize_fon').selectize({
+        persist: false,
+        maxItems: null,
+        valueField: 'email',
+        labelField: 'name',
+        searchField: ['name', 'email'],
+
+        render: {
+
+
+            item: function (item, escape) {
+                return '<div>' +
+
+                    (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
+                    '</div>';
+            },
+            option: function (item, escape) {
+                var label = item.name || item.email;
+                var caption = item.name ? item.email : null;
+                return '<div>' +
+                    '<span class="label">' + escape(label) + '</span>' +
+                    (caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
+                    '</div>';
+            },
+            option_create: function (data, escape) {
+                return '<div class="create">Füge hinzu <strong>' + escape(data.input) + '</strong>&hellip;</div>';
+            }
+        },
+
+        createFilter: function (input) {
+            var match, regex;
+
+            // email@address.com
+            regex = new RegExp('^' + REGEX_Telefon + '$', 'i');
+            match = input.match(regex);
+            if (match) return !this.options.hasOwnProperty(match[0]);
+
+            // name <email@address.com>
+            regex = new RegExp('^([^<]*)\<' + REGEX_Telefon + '\>$', 'i');
+            match = input.match(regex);
+            if (match) return !this.options.hasOwnProperty(match[2]);
+
+            return false;
+        },
+        create: function (input) {
+            if ((new RegExp('^' + REGEX_Telefon + '$', 'i')).test(input)) {
+                return {email: input};
+            }
+            var match = input.match(new RegExp('^([^<]*)\<' + REGEX_Telefon + '\>$', 'i'));
+            if (match) {
+                return {
+                    email: match[2],
+                    name: $.trim(match[1])
+                };
+            }
+            alert('Es wurde eine falsche Nummer eingegeben.');
+            return false;
+        }
+    });
+
+
+</script>
+<script>
+$("#id_modul").change(function () {
+
+
+      var Id = $(this).val();  // get the ID from the HTML input
+    var model = $("#id_modul").val()
+        url = '/ajax_load_fields/'+model+'/'
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request
+        data: {
+          'id': Id       // add the id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $(this).html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+    </script>
+{% endblock %}
